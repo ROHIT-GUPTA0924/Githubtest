@@ -9,8 +9,8 @@ on:
         type: string
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
