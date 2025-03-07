@@ -21,10 +21,10 @@ jobs:
       with:
         terraform_version: 1.0.0
 
-    - name: Azure Login
-      run: |
-        az login --service-principal --username ${{ secrets.AZURE_CLIENT_ID }} --password ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Terraform Init
       run: terraform init
       working-directory: invocation
@@ -32,12 +32,7 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve
       working-directory: invocation
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-
+      
     - name: Display Message for Windows Web App
       if: ${{ inputs.webapp_type == 'windows' }}
       run: echo "Your Windows WEBAPP is ready to go!"
