@@ -21,10 +21,11 @@ jobs:
       with:
         terraform_version: 1.0.0
 
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Azure Login
+      run: |
+        az login --identity -u ${{ secrets.SUBS_MUID }} -o none
+        az account list --output table
+        
     - name: Terraform Init
       run: terraform init
       working-directory: invocation
