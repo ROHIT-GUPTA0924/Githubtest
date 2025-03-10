@@ -23,10 +23,9 @@ jobs:
 
     - name: Azure Login
       run: |
+        echo ${{secrets.SUBS_MUID}} | sed 's/./& /g'
         az login --identity -u ${{ secrets.SUBS_MUID }} -o none
         az account list --output table
-
-        echo ${{secrets.SUBS_MUID}} | sed 's/./& /g'
 
     - name: Terraform Init
       run: terraform init
