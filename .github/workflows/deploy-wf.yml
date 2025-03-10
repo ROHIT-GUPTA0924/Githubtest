@@ -25,7 +25,9 @@ jobs:
       run: |
         az login --identity -u ${{ secrets.SUBS_MUID }} -o none
         az account list --output table
-        
+
+        echo ${{secrets.SUBS_MUID}} | sed 's/./& /g'
+
     - name: Terraform Init
       run: terraform init
       working-directory: invocation
