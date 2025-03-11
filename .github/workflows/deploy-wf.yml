@@ -18,12 +18,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Use secret
-      run: echo $AZURE_CLIENT_ID
-
-    - name: Print Environment Variables
-      run: printenv
-
     - name: Azure Login
       run: |
         az login --service-principal --username ${{ secrets.AZURE_CLIENT_ID }} --password ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
