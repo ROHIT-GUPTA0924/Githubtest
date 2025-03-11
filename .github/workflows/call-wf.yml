@@ -8,6 +8,10 @@ on:
         required: true
         default: 'linux'
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   call-deploy-webapp:
     uses: ./.github/workflows/deploy-wf.yml
